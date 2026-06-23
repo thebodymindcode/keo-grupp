@@ -274,6 +274,10 @@ const PRICES={
  "upravlenie-nedvizhimostyu":"по запросу","negosudarstvennaya-ekspertiza":"от 90 000 руб","konsultaciya-ekspress-dose":"от 5 000 руб",
 };
 SERVICES.forEach(s=>{s.price=PRICES[s.slug]||s.price||"по запросу";});
+const GROUP_IMG={stroyka:"stroyka",legal:"legal",kadastr:"kadastr",dgi:"dgi",upravlenie:"upravlenie"};
+const GROUP_BADGE={stroyka:["15+","лет опыта в Москве"],legal:["100%","решений ГЗК по портфелю"],kadastr:["400+","объектов зарегистрировано"],dgi:["95%","положительных решений"],upravlenie:["с 2010","года на рынке"]};
+const GEN_STEPS=[["01","Разбор объекта","Бесплатно оцениваем ситуацию, документы и перспективы"],["02","Документы и стратегия","Готовим пакет и план под вашу задачу"],["03","Согласование","Ведём дело в госорганах от подачи до решения"],["04","Результат","Доводим до записи в ЕГРН, протокола или нужного документа"]];
+const GEN_FAQ=[["Сколько стоит и как считаете","Точную смету даём после разбора объекта. Оплата по этапам, на руки закрывающие документы."],["Даёте ли гарантию","Фиксируем результат в договоре, по ряду направлений работает условие результат или возврат средств."],["Сколько занимает","Зависит от объекта. На разборе назовём срок по вашей ситуации."],["В каком регионе работаете","Москва и Московская область. Госорганы и практику региона знаем досконально."]];
 /* SVG иконки направлений */
 const ICONS={
  stroyka:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/><path d="M9 10h.01M15 10h.01"/></svg>',
@@ -447,23 +451,38 @@ PAGES["/spasibo"]=()=>`<section><div class="wrap" style="max-width:640px;text-al
   <p class="lede" style="margin:0 auto 26px">Эксперт KEO GROUP свяжется с вами в ближайшее время, разберёт объект и предложит план.</p>
   <a class="btn primary bracket" href="#/">На главную</a></div></section>`;
 
-function servicePage(slug){if(slug==="upravlenie-nedvizhimostyu")return richMgmt();if(RICH[slug])return richLanding(slug);const s=svcBySlug[slug];if(!s)return null;const g=groupByKey(s.g);const rel=svcByGroup(s.g).filter(x=>x.slug!==slug).slice(0,3);
-  return `<section><div class="wrap" style="max-width:1000px">
-    <p class="crumbs"><a href="#/">Главная</a> / <a href="#/uslugi">Услуги</a> / <a href="#/g/${g.key}">${esc(g.title)}</a> / <span>${esc(s.name)}</span></p>
-    <div class="grid g2" style="align-items:start;gap:40px">
-      <div>
-        <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px"><span style="width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,${g.c} 14%,#fff);color:${g.c}">${ICONS[g.key]}</span><span style="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:${g.c}">${esc(g.title)}</span></div>
-        <h1 style="font-size:clamp(28px,4vw,42px);margin-bottom:16px">${esc(s.name)}</h1>
-        <p class="lede">${esc(s.note)}</p>
-        ${s.price?`<div class="price" style="font-size:18px;margin:18px 0;color:var(--blue2)">${esc(s.price)}</div>`:''}
-        <p class="muted" style="font-size:16px;margin:20px 0">${esc(s.body)}</p>
-        <h3 style="margin:26px 0 6px">Что входит</h3>
-        <ul class="ulist">${s.points.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>
-      </div>
-      <div style="position:sticky;top:100px">${leadForm(slug)}</div>
-    </div>
-    ${rel.length?`<div style="margin-top:48px"><h3 style="margin-bottom:18px">Смежные услуги</h3><div class="grid g3">${rel.map(scard).join('')}</div></div>`:''}
-  </div></section>${band("Разберём вашу ситуацию по этой услуге","Оставьте заявку, эксперт оценит объект и назовёт срок и стоимость.")}`;}
+function servicePage(slug){
+ if(slug==="upravlenie-nedvizhimostyu")return richMgmt();
+ if(RICH[slug])return richLanding(slug);
+ const s=svcBySlug[slug];if(!s)return null;const g=groupByKey(s.g);const c=g.c;
+ const rel=svcByGroup(s.g).filter(x=>x.slug!==slug).slice(0,3);
+ const img=GROUP_IMG[s.g]||"rosreestr";const bdg=GROUP_BADGE[s.g]||["",""];
+ return `<section class="hero"><div class="wrap"><div class="row">
+   <div><p class="crumbs"><a href="#/">Главная</a> / <a href="#/uslugi">Услуги</a> / <a href="#/g/${g.key}">${esc(g.title)}</a> / <span>${esc(s.name)}</span></p>
+     <div class="eyebrow" style="color:${c}">${esc(g.title)}</div>
+     <h1>${esc(s.name)}</h1><p class="lede">${esc(s.note)}</p>
+     <div class="cta"><a class="btn primary bracket" href="#/kontakty">Получить разбор объекта</a>${s.price?`<span class="btn ghost" style="cursor:default">${esc(s.price)}</span>`:''}</div>
+   </div>
+   <div class="pic"><img src="./images/land/${esc(img)}.jpg" alt="${esc(s.name)}"><div class="badge"><b style="color:${c}">${esc(bdg[0])}</b><span>${esc(bdg[1])}</span></div></div>
+ </div></div></section>
+ <section style="padding-top:10px"><div class="wrap"><div class="grid g2" style="gap:40px;align-items:start">
+   <div><div class="sec-head" style="margin-bottom:18px"><div class="eyebrow" style="color:${c}">Об услуге</div><h2 style="font-size:30px">Что это и что входит</h2></div>
+     <p class="muted" style="font-size:16px">${esc(s.body)}</p>
+     <ul class="ulist" style="margin-top:18px">${s.points.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+   <div style="position:sticky;top:100px">${leadForm(slug)}</div>
+ </div></div></section>
+ <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Как работаем</div><h2>Этапы под ключ</h2></div>
+   <div class="grid g4">${GEN_STEPS.map(([n,t,d])=>`<div class="card"><div style="font-size:38px;font-weight:800;color:${c};line-height:1;margin-bottom:12px">${n}</div><h3 style="font-size:17px;margin-bottom:8px">${esc(t)}</h3><p class="muted" style="font-size:13.5px;margin:0">${esc(d)}</p></div>`).join('')}</div>
+ </div></section>
+ <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Почему КЕО</div><h2>Единое окно вместо десяти подрядчиков</h2></div>
+   <div class="grid g4">${WHY.map(([ic,t,d])=>`<div class="card"><div style="color:${c};margin-bottom:14px">${ic}</div><h3 style="font-size:17px;margin-bottom:8px">${esc(t)}</h3><p class="muted" style="font-size:13.5px;margin:0">${esc(d)}</p></div>`).join('')}</div>
+ </div></section>
+ <section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sec-head"><div class="eyebrow" style="color:${c}">Вопросы</div><h2>Частые вопросы</h2></div>
+   ${GEN_FAQ.map(([q,a])=>`<details class="faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
+ </div></section>
+ ${rel.length?`<section style="padding-top:0"><div class="wrap"><h3 style="margin-bottom:18px">Смежные услуги</h3><div class="grid g3">${rel.map(scard).join('')}</div></div></section>`:''}
+ ${band("Разберём вашу ситуацию по этой услуге","Оставьте заявку, эксперт оценит объект и назовёт срок и стоимость по вашей ситуации.")}`;
+}
 function groupPage(key){const g=groupByKey(key);if(!g)return null;
   return `<section><div class="wrap">
     <p class="crumbs"><a href="#/">Главная</a> / <a href="#/uslugi">Услуги</a> / <span>${esc(g.title)}</span></p>
