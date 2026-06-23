@@ -50,9 +50,6 @@
   .menu>a,.menu .drop>a{padding:11px 14px;border-radius:10px;font-size:14.5px;font-weight:700;color:var(--navy);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:color .2s,background .2s;white-space:nowrap}
   .menu>a:hover,.menu .drop:hover>a{color:var(--blue2);background:var(--soft)}
   .menu>a.on{color:var(--blue2)}
-  .menu>a,.menu .drop>a{background-size:220% 100%;background-position:0 0}
-  .menu>a:hover,.menu .drop:hover>a{color:#fff;background-image:linear-gradient(90deg,#35b8fc,#7a5cff,#27c281,#35b8fc);animation:navshine 2.4s linear infinite;transform:translateY(-2px);box-shadow:0 8px 20px rgba(53,184,252,.28)}
-  @keyframes navshine{0%{background-position:0 0}100%{background-position:-220% 0}}
   .nav .right{margin-left:auto;display:flex;align-items:center;gap:16px;flex:0 0 auto}
   .nav .tel{font-weight:800;font-size:16px;color:var(--navy);white-space:nowrap}
   .nav .tel small{display:block;font-size:11px;font-weight:600;color:var(--ink3)}
@@ -60,13 +57,15 @@
   .drop{position:static}
   .mega{position:absolute;left:0;right:0;top:100%;background:var(--white);border-top:1px solid var(--line);box-shadow:0 30px 50px rgba(54,24,125,.12);opacity:0;visibility:hidden;transform:translateY(6px);transition:.2s;z-index:90}
   .drop:hover .mega{opacity:1;visibility:visible;transform:translateY(0)}
-  .mega .in{display:grid;grid-template-columns:repeat(4,1fr) 1.2fr;gap:22px;padding:30px 0 34px}
+  .mega .in{display:grid;grid-template-columns:repeat(5,1fr) 1.1fr;gap:20px;padding:26px 0 30px;align-items:start}
   .mega .col h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:0 0 12px}
   .mega .col a{display:block;padding:7px 0;font-size:13.5px;font-weight:600;color:var(--ink2);border:0}
   .mega .col a:hover{color:var(--blue2);background:transparent}
-  .mega .feat{background:linear-gradient(150deg,var(--navy),#5b3bb0);border-radius:var(--r);padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+  .mega .feat{background:linear-gradient(150deg,var(--navy),#5b3bb0);border-radius:var(--r);padding:22px;color:#fff;display:flex;flex-direction:column;gap:10px;align-self:start}
   .mega .feat h4{color:#fff;font-size:19px;margin:0 0 8px}
   .mega .feat p{color:rgba(255,255,255,.82);font-size:13px}
+  
+  .drop.closing .mega{opacity:0!important;visibility:hidden!important}
   .burger{display:none;width:50px;height:50px;border:1px solid var(--line2);border-radius:12px;background:var(--white);color:var(--navy);cursor:pointer;font-size:20px}
   /* sections */
   section{padding:80px 0}
@@ -304,6 +303,7 @@ function renderChrome(){
     <a href="#/faq" data-r="/faq">Вопросы</a>
     <a href="#/kontakty" data-r="/kontakty">Контакты</a>`;
   
+  (function(){var drop=document.querySelector('.menu .drop');if(drop){drop.querySelectorAll('.mega a').forEach(function(a){a.addEventListener('click',function(){drop.classList.add('closing');});});drop.addEventListener('mouseleave',function(){drop.classList.remove('closing');});}})();
   document.getElementById('footer').innerHTML=`
     <div class="fgrid">
       <div class="fcol"><a class="logo" href="#/" style="margin-bottom:16px"><span class="m">KEO</span><span><b>GROUP</b></span></a>
@@ -475,6 +475,7 @@ const CASES_MGMT=[
  {img:"entuziastov",t:"ул. Энтузиастов, д.5 корп.34",d:"Москва",type:"Коммерческое здание"},
  {img:"tovarishcheskiy",t:"Товарищеский пер., д.7 стр.3",d:"Москва",type:"Офисно-торговый объект"},
  {img:"pestelya",t:"ул. Пестеля, 6Г",d:"Москва",type:"Коммерческое помещение"},
+ {img:"myasnitskaya",t:"ул. Мясниковская, д.7",d:"Москва",type:"Административное здание"},
 ];
 const MGMT_OFFER=[
  [ICONS.stroyka,"Техническое обслуживание","Контроль состояния здания, регулярное обслуживание инженерных систем, ремонт при необходимости."],
@@ -537,7 +538,7 @@ function richMgmt(){const g=groupByKey("upravlenie");
 
 /* ===== БОГАТЫЕ ЛЕНДИНГИ НАПРАВЛЕНИЙ ===== */
 const RICH={
- "krt-zashchita":{group:"legal",img:"volokolamskoe",
+ "krt-zashchita":{group:"legal",img:"krt",
   title:"КРТ: защита собственников и справедливая компенсация",
   lede:"Если объект попал в зону комплексного развития территории, добиваемся исключения или справедливой компенсации через судебную экспертизу. Государственная оценка занижает стоимость в 2-3 раза, мы возвращаем реальную.",
   badge:["+82%","средний рост компенсации, 2024-2025"],
@@ -547,7 +548,7 @@ const RICH={
   tariffs:[["КРТ-досье","150 000 ₽","5-10 рабочих дней","Разбор объекта, оценка перспектив, дорожная карта",true],["Судебная экспертиза","25-30 тыс ₽","взыскивается с ДГИ","Независимая оценка реальной стоимости объекта",false],["Оплата по результату","%","от роста компенсации","Платите процент от той суммы, что мы дополнительно отсудили",false]],
   faq:[["Как узнать, что объект включён в КРТ","По кадастровому номеру проверяем проект КРТ и публичные решения. На разборе скажем точно."],["Почему судебная экспертиза даёт больше","Госоценка системно занижает. Независимый эксперт учитывает рынок, упущенную выгоду и улучшения."],["Что входит в компенсацию","Рыночная стоимость объекта, убытки, упущенная выгода, иногда стоимость оборудования."],["Когда выплачивают деньги","После соглашения или решения суда. Действовать нужно до истечения 90 дней на подписание."]]},
 
- "dgi-vykup-159fz":{group:"dgi",img:"pavoleckiy",
+ "dgi-vykup-159fz":{group:"dgi",img:"dgi",
   title:"ДГИ: споры и сделки с городом",
   lede:"Защищаем имущественные права в спорах с Департаментом городского имущества Москвы: выкуп по 159-ФЗ, претензии по аренде, льготная аренда, оспаривание оценки. Профильная практика с 2017 года.",
   badge:["1,2 млрд ₽","сэкономлено клиентам"],
@@ -557,7 +558,7 @@ const RICH={
   tariffs:[["Консультация и аудит","Бесплатно","оценка за 1-2 дня","Разбираем дело и говорим перспективы честно",false],["Досудебное сопровождение","от 150 000 ₽","по объёму работ","Подготовка позиции и работа с ДГИ",true],["Суд","от 300 000 ₽","возможна оплата по результату","Полное представительство в суде",false]],
   faq:[["Кому положен выкуп по 159-ФЗ","Малому и среднему бизнесу, который арендует помещение у города от 2 лет без долгов."],["Как оспорить цену выкупа","Через независимую оценку и при необходимости суд. По нашим делам снижали цену в разы."],["Что делать со штрафом за нецелевое","Анализируем основание, меняем назначение или обжалуем. Часто штраф отменяется."],["Можно ли продлить льготную аренду","Да, оформляем, продлеваем и сохраняем льготу при проверках."]]},
 
- "rosreestr-priostanovki":{group:"kadastr",img:"marina-roshcha",
+ "rosreestr-priostanovki":{group:"kadastr",img:"rosreestr",
   title:"Росреестр: регистрация, кадастр и снятие приостановок",
   lede:"Полное сопровождение в Росреестре под ключ: от технического плана до выписки ЕГРН. Снимаем приостановки и отказы, регистрируем право. Гарантия результата или возврат.",
   badge:["от 3 дней","регистрация под ключ"],
@@ -567,7 +568,7 @@ const RICH={
   tariffs:[["Технический план","от 15 000 ₽","3-5 дней","Здание, помещение, сооружение",false],["Техническое заключение","от 20 000 ₽","5-7 дней","Состояние конструкций и возможность работ",true],["Проект перепланировки","от 25 000 ₽","согласование в МЖИ","Проект и сопровождение",false]],
   faq:[["Сколько занимает регистрация","Обычно 3-7 рабочих дней после подготовки документов."],["Что делать при приостановке","Есть 3 месяца на исправление. Разбираем причину и подаём повторно или обжалуем за 30 дней."],["Главные причины приостановок","Ошибки в техплане (около 35%) и неполный пакет документов (около 25%)."],["Работаете удалённо","Да, по доверенности и ЭЦП. Москва и область до 50 км от МКАД."]]},
 
- "nekapitalnye-obekty":{group:"stroyka",img:"samarkandskiy",
+ "nekapitalnye-obekty":{group:"stroyka",img:"nekapitalka",
   title:"Некапитальные объекты: согласование и защита от сноса",
   lede:"Разрабатываем проект и согласовываем павильоны, склады, ангары, навесы и модульные здания по 636-ПП и 1255-ПП. Легализуем существующие объекты и защищаем от сноса. Срок от 30 дней, гарантия или возврат.",
   badge:["95%","положительных решений"],
@@ -577,7 +578,7 @@ const RICH={
   tariffs:[["Только проект","от 100 000 ₽","документация, чертежи, 3D","Готовый проект для самостоятельной подачи",false],["Под ключ","от 180 000 ₽","проект, согласование, гарантия","Полный цикл до разрешения",true],["Легализация","от 250 000 ₽","для существующих объектов","Узаконивание и защита от сноса",false]],
   faq:[["Что считается некапитальным","Павильоны, склады, ангары, навесы и модульные здания без заглублённого фундамента."],["Разница 636-ПП и 1255-ПП","636-ПП это городская земля и ДГИ, 1255-ПП это частная земля и новая процедура с 01.09.2024."],["Что грозит без согласования","Штрафы, приостановка бизнеса, снос и блокировка операций с имуществом."],["Сколько занимает согласование","Обычно 45-75 дней в зависимости от сложности объекта."]]},
 
- "vri-zemelnogo-uchastka":{group:"legal",img:"fridriha-engelsa",
+ "vri-zemelnogo-uchastka":{group:"legal",img:"vri",
   title:"Смена ВРИ, ПЗЗ и ПМТ",
   lede:"Меняем вид разрешённого использования участка под ваши задачи: регистрация аренды, разрешение на строительство, смена деятельности, снижение налога. Корректируем ПЗЗ и разрабатываем ПМТ.",
   badge:["95%","положительных решений"],
@@ -595,7 +596,7 @@ function richLanding(slug){const d=RICH[slug];if(!d)return null;const s=svcBySlu
      <h1>${esc(d.title)}</h1><p class="lede">${esc(d.lede)}</p>
      <div class="cta"><a class="btn primary bracket" href="#/kontakty">Получить разбор объекта</a>${s&&s.price?`<span class="btn ghost" style="cursor:default">${esc(s.price)}</span>`:''}</div>
    </div>
-   <div class="pic"><img src="./images/cases/${esc(d.img)}.jpg" alt="${esc(d.title)}"><div class="badge"><b style="color:${c}">${esc(d.badge[0])}</b><span>${esc(d.badge[1])}</span></div></div>
+   <div class="pic"><img src="./images/land/${esc(d.img)}.jpg" alt="${esc(d.title)}"><div class="badge"><b style="color:${c}">${esc(d.badge[0])}</b><span>${esc(d.badge[1])}</span></div></div>
  </div></div></section>
  <section style="padding-top:10px"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">В цифрах</div><h2>Результаты направления</h2></div>
    <div class="trust" style="padding:0"><div class="wrap" style="padding:0"><div class="row">${d.stats.map((x,i)=>`<div class="t${i===0?' hl':''}">${i===0?`<b style="color:#fff">${esc(x[0])}</b><span style="color:#fff">${esc(x[1])}</span>`:`<b>${esc(x[0])}</b><span>${esc(x[1])}</span>`}</div>`).join('')}</div></div></div>
