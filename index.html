@@ -451,12 +451,69 @@ PAGES["/spasibo"]=()=>`<section><div class="wrap" style="max-width:640px;text-al
   <p class="lede" style="margin:0 auto 26px">Эксперт KEO GROUP свяжется с вами в ближайшее время, разберёт объект и предложит план.</p>
   <a class="btn primary bracket" href="#/">На главную</a></div></section>`;
 
+/* ===== ЭКСПЕРТНЫЕ БЛОКИ ПО НАПРАВЛЕНИЯМ (для объёмных лендингов услуг) ===== */
+const OIC={
+ doc:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>',
+ shield:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4Z"/><path d="M9 12l2 2 4-4"/></svg>',
+ key:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 21 2M17 6l3 3M14 9l2 2"/></svg>',
+ stamp:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21h14"/><path d="M9 8a3 3 0 1 1 6 0c0 2-2 2.5-2 4h-2c0-1.5-2-2-2-4Z"/><path d="M6 17h12v-1a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v1Z"/></svg>',
+};
+const GROUP_RICH={
+ stroyka:{stats:[["15+","лет в Москве"],["100%","решений ГЗК"],["30 000+","кв.м узаконено"],["1 окно","инженеры и юристы"]],
+  who:["Реконструкция здания без остановки бизнеса","Новое коммерческое строительство под ключ","Изменение фасада, входной группы, АГР","Размещение павильона или некапитального объекта","Нужен авторский и строительный надзор"],
+  outcomes:[[OIC.doc,"Проект и АГР","Согласованная документация и архитектурный облик"],[OIC.stamp,"Разрешение","Разрешение на строительство или размещение"],[OIC.key,"Ввод и ЕГРН","Ввод в эксплуатацию и запись площадей в ЕГРН"]],
+  risks:["Самострой попадает в реестр 819-ПП и под снос","Штрафы и приостановка работ от ГИН","Объект нельзя продать, сдать в аренду или заложить","Время теряется на отказах по кругу"],
+  faq:[["Можно ли реконструировать без остановки бизнеса","Да, планируем этапы так, чтобы аренда и работа не прерывались."],["Кто отвечает за результат","Одна команда: инженеры, кадастровые специалисты и юристы, без перекладывания ответственности."],["Что делать с самостроем","Узакониваем через ГЗК, исключаем из 819-ПП и признаём право собственности."],["Сколько занимает","Зависит от объекта, обычно от нескольких месяцев. На разборе назовём точный срок."]]},
+ legal:{stats:[["100%","решений ГЗК"],["30+","проектов легализации"],["5-15 мес","срок по 819-ПП"],["220+","изъятий по КРТ за 5,5 мес 2026"]],
+  who:["Объект в реестре самостроя 819-ПП","Участок попал в зону КРТ","Смена ВРИ под аренду или строительство","Корректировка ПЗЗ или разработка ПМТ","Прохождение Градостроительно-земельной комиссии"],
+  outcomes:[[OIC.stamp,"Протокол ГЗК","Положительное решение комиссии по объекту"],[OIC.shield,"Исключение из 819-ПП","Снятие статуса самостроя"],[OIC.key,"Право собственности","Признанное и зарегистрированное право"]],
+  risks:["Снос объекта без компенсации","Блокировка любых сделок с имуществом","Штраф за нецелевое использование от 100 000 ₽","Заниженная компенсация при изъятии по КРТ"],
+  faq:[["Что регулирует легализацию","В Москве это 819-ПП и Градостроительно-земельная комиссия. Решение фиксируется протоколом ГЗК."],["Сколько занимает по 819-ПП","Обычно от 5 до 15 месяцев в зависимости от объекта."],["Зачем менять ВРИ","Росреестр не регистрирует аренду при несовпадении назначения и ВРИ участка, ст. 37 ГрК РФ."],["Что делать при попадании в КРТ","Действовать на опережение: исключение из проекта или справедливая компенсация через суд."],["Даёте гарантию","Да, по ряду направлений работает условие результат или возврат средств."]]},
+ kadastr:{stats:[["400+","объектов"],["3-7 дней","регистрация"],["7 из 10","заявок без спеца тормозят"],["30 дней","апелляционная комиссия"]],
+  who:["Приостановка или отказ в Росреестре","Регистрация права собственности под ключ","Изменения в ЕГРН после перепланировки","Нужен техплан, ТЗК или акт обследования","Межевание и уточнение границ"],
+  outcomes:[[OIC.doc,"Выписка ЕГРН","Запись права в реестре"],[OIC.stamp,"Технический план","Готовый документ для Росреестра"],[OIC.shield,"Снятая приостановка","Устранение причин и регистрация"]],
+  risks:["Потеря 3-12 месяцев на исправление ошибок","Доп. расходы 50-100% от первоначальной сметы","Нельзя продать, сдать или заложить объект","Повторные приостановки по кругу"],
+  faq:[["Сколько занимает регистрация","Обычно 3-7 рабочих дней после подготовки документов."],["Что делать при приостановке","Есть 3 месяца на исправление. Разбираем причину, подаём повторно или обжалуем за 30 дней."],["Главные причины приостановок","Ошибки в техплане и неполный пакет документов."],["Работаете удалённо","Да, по доверенности и ЭЦП. Москва и область."]]},
+ dgi:{stats:[["100+","дел по ДГИ"],["95%","положительных решений"],["1,2 млрд ₽","сэкономлено клиентам"],["7 лет","специализации"]],
+  who:["Выкуп арендуемого помещения по 159-ФЗ","Претензии ДГИ: доначисления, неустойки","Льготная аренда городских помещений","Оспаривание кадастровой стоимости","Завышенная оценка при выкупе"],
+  outcomes:[[OIC.key,"Право выкупа","Помещение в собственность по справедливой цене"],[OIC.shield,"Снятая претензия","Отмена или снижение требований ДГИ"],[OIC.doc,"Сниженная стоимость","Меньше налог и арендные платежи"]],
+  risks:["Переплата 30-80% при выкупе по оценке города","Штрафы за нецелевое использование 2-10% кадастровой","Потеря аренды по уведомлению за 3 месяца","Доначисления и неустойки по договору"],
+  faq:[["Кому положен выкуп по 159-ФЗ","Малому и среднему бизнесу, который арендует помещение у города от 2 лет без долгов."],["Как оспорить цену выкупа","Через независимую оценку и при необходимости суд."],["Что со штрафом за нецелевое","Анализируем основание, меняем назначение или обжалуем."],["Можно ли продлить льготную аренду","Да, оформляем, продлеваем и сохраняем льготу при проверках."]]},
+ upravlenie:{stats:[["с 2010","на рынке"],["5-10%","от арендного потока"],["4 типа","недвижимости в управлении"],["1 окно","техника, аренда, финансы, право"]],
+  who:["Собственник хочет снять заботы по объекту","Нужно поднять доходность и заполняемость","Требуется техническое обслуживание здания","Инвестор подбирает объект под доходность","Нужна негосэкспертиза или экспресс-досье"],
+  outcomes:[[OIC.shield,"Управление под ключ","Техника, аренда, финансы, юристы в одной команде"],[OIC.doc,"Прозрачная отчётность","Бюджет объекта и отчёты собственнику"],[OIC.key,"Рост доходности","Оптимизация расходов и арендного потока"]],
+  risks:["Простой площадей и потеря арендного дохода","Рост расходов на содержание","Проблемы с арендаторами и платежами","Износ инженерных систем без контроля"],
+  faq:[["Сколько стоит управление","От 5% от арендного потока по тарифу «Минимум», 10% по «Оптимальному», или индивидуально."],["Какие объекты берёте","Торговую, офисную, складскую и производственную недвижимость."],["Что входит в управление","Техобслуживание, арендный процесс, финансы, юридическое сопровождение, маркетинг."],["Помогаете инвесторам","Да, подбор объекта, проверка чистоты, аудит доходности и окупаемости."]]},
+};
+
+const START_DOCS={
+ stroyka:"кадастровый номер объекта, выписку ЕГРН, правоустанавливающие документы, ГПЗУ при наличии и краткое описание планируемых работ",
+ legal:"кадастровый номер, выписку ЕГРН, правоустанавливающие документы и короткое описание ситуации (что построено или что хотите сделать с участком)",
+ kadastr:"кадастровый номер, выписку ЕГРН, имеющиеся документы по объекту и текст приостановки или отказа Росреестра, если он есть",
+ dgi:"договор аренды с городом или документы на помещение, выписку ЕГРН и претензию, оценку или уведомление от ДГИ при наличии",
+ upravlenie:"адрес и сведения об объекте, площадь, текущие договоры аренды и краткие задачи, которые нужно решить",
+};
+function startFaq(g){return ["С чего начать и какие документы прислать","Начните с бесплатного разбора: оставьте заявку или позвоните по телефону. Для первой оценки пришлите "+(START_DOCS[g]||"кадастровый номер и выписку ЕГРН")+". Этого достаточно, чтобы понять перспективы, назвать срок и стоимость. Полный список документов под вашу задачу подскажем после разбора."];}
+const EXTRA_FAQ={
+ stroyka:[["Нужно ли останавливать аренду на время работ","Нет, планируем этапы так, чтобы арендаторы продолжали работать, а доход не прерывался."],["Чем грозит стройка без разрешения","Объект признают самостроем по 819-ПП: это риск сноса, штрафы и блокировка любых сделок с имуществом."]],
+ legal:[["Можно ли узаконить уже построенное","Да, через Градостроительно-земельную комиссию исключаем из 819-ПП и признаём право на возведённые площади."],["Что выгоднее при КРТ, соглашение или суд","Часто суд с независимой экспертизой даёт заметно больше государственной оценки. Считаем по конкретному объекту."]],
+ kadastr:[["Сколько действует выписка ЕГРН","Юридически она бессрочна, но для сделок и банков обычно нужна свежая, в пределах 30 дней."],["Можно ли ускорить регистрацию","Да, правильной подготовкой и подачей документов. Частая причина задержек это ошибки в техническом плане."]],
+ dgi:[["Сколько длится выкуп по 159-ФЗ","Обычно от 3 до 12 месяцев, в зависимости от того, есть ли спор по цене."],["Реально ли снизить цену выкупа","Да, через независимую оценку и суд снижали стоимость выкупа в разы."]],
+ upravlenie:[["Как быстро берёте объект в управление","После аудита и согласования тарифа, обычно за 1-2 недели."],["Можно ли заказать только техобслуживание","Да, собираем тариф под нужный набор услуг, без лишнего."]],
+};
+Object.keys(EXTRA_FAQ).forEach(function(k){if(GROUP_RICH[k]&&GROUP_RICH[k].faq)GROUP_RICH[k].faq=GROUP_RICH[k].faq.concat(EXTRA_FAQ[k]);});
+
 function servicePage(slug){
  if(slug==="upravlenie-nedvizhimostyu")return richMgmt();
  if(RICH[slug])return richLanding(slug);
- const s=svcBySlug[slug];if(!s)return null;const g=groupByKey(s.g);const c=g.c;
+ const s=svcBySlug[slug];if(!s)return null;const g=groupByKey(s.g);const c=g.c;const gr=GROUP_RICH[s.g]||{};
  const rel=svcByGroup(s.g).filter(x=>x.slug!==slug).slice(0,3);
  const img=GROUP_IMG[s.g]||"rosreestr";const bdg=GROUP_BADGE[s.g]||["",""];
+ const statsBar=gr.stats?`<section style="padding-top:8px"><div class="wrap"><div class="trust" style="padding:0"><div class="wrap" style="padding:0"><div class="row">${gr.stats.map((x,i)=>`<div class="t${i===0?' hl':''}">${i===0?`<b style="color:#fff">${esc(x[0])}</b><span style="color:#fff">${esc(x[1])}</span>`:`<b>${esc(x[0])}</b><span>${esc(x[1])}</span>`}</div>`).join('')}</div></div></div></div></section>`:'';
+ const who=gr.who?`<section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Когда нужна</div><h2>Кому подходит эта услуга</h2></div><div class="grid g3">${gr.who.map(x=>`<div class="card" style="display:flex;gap:12px;align-items:flex-start"><span style="flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:color-mix(in srgb,${c} 16%,#fff);color:${c};display:flex;align-items:center;justify-content:center;font-weight:800">✓</span><p class="muted" style="margin:0;font-size:14.5px">${esc(x)}</p></div>`).join('')}</div></div></section>`:'';
+ const outc=gr.outcomes?`<section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Результат</div><h2>Что вы получаете на руки</h2></div><div class="grid g3">${gr.outcomes.map(([ic,t,d])=>`<div class="card"><div style="width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,${c} 14%,#fff);color:${c};margin-bottom:16px">${ic}</div><h3 style="font-size:18px;margin-bottom:8px">${esc(t)}</h3><p class="muted" style="font-size:14px;margin:0">${esc(d)}</p></div>`).join('')}</div></div></section>`:'';
+ const risks=gr.risks?`<section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:#e5484d">Важно</div><h2>Риски без специалиста</h2><p class="lede" style="margin-top:12px">Что бывает, когда объект ведут без профильной команды.</p></div><div class="grid g2">${gr.risks.map(x=>`<div class="card" style="display:flex;gap:14px;align-items:flex-start;border-left:3px solid #e5484d"><span style="flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:#fdeaea;color:#e5484d;display:flex;align-items:center;justify-content:center;font-weight:800">!</span><p class="muted" style="margin:0;font-size:15px">${esc(x)}</p></div>`).join('')}</div></div></section>`:'';
+ const faqList=[startFaq(s.g)].concat(gr.faq||GEN_FAQ);
  return `<section class="hero"><div class="wrap"><div class="row">
    <div><p class="crumbs"><a href="#/">Главная</a> / <a href="#/uslugi">Услуги</a> / <a href="#/g/${g.key}">${esc(g.title)}</a> / <span>${esc(s.name)}</span></p>
      <div class="eyebrow" style="color:${c}">${esc(g.title)}</div>
@@ -465,20 +522,24 @@ function servicePage(slug){
    </div>
    <div class="pic"><img src="./images/land/${esc(img)}.jpg" alt="${esc(s.name)}"><div class="badge"><b style="color:${c}">${esc(bdg[0])}</b><span>${esc(bdg[1])}</span></div></div>
  </div></div></section>
+ ${statsBar}
  <section style="padding-top:10px"><div class="wrap"><div class="grid g2" style="gap:40px;align-items:start">
    <div><div class="sec-head" style="margin-bottom:18px"><div class="eyebrow" style="color:${c}">Об услуге</div><h2 style="font-size:30px">Что это и что входит</h2></div>
      <p class="muted" style="font-size:16px">${esc(s.body)}</p>
      <ul class="ulist" style="margin-top:18px">${s.points.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
    <div style="position:sticky;top:100px">${leadForm(slug)}</div>
  </div></div></section>
+ ${who}
  <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Как работаем</div><h2>Этапы под ключ</h2></div>
    <div class="grid g4">${GEN_STEPS.map(([n,t,d])=>`<div class="card"><div style="font-size:38px;font-weight:800;color:${c};line-height:1;margin-bottom:12px">${n}</div><h3 style="font-size:17px;margin-bottom:8px">${esc(t)}</h3><p class="muted" style="font-size:13.5px;margin:0">${esc(d)}</p></div>`).join('')}</div>
  </div></section>
+ ${outc}
  <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Почему КЕО</div><h2>Единое окно вместо десяти подрядчиков</h2></div>
    <div class="grid g4">${WHY.map(([ic,t,d])=>`<div class="card"><div style="color:${c};margin-bottom:14px">${ic}</div><h3 style="font-size:17px;margin-bottom:8px">${esc(t)}</h3><p class="muted" style="font-size:13.5px;margin:0">${esc(d)}</p></div>`).join('')}</div>
  </div></section>
+ ${risks}
  <section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sec-head"><div class="eyebrow" style="color:${c}">Вопросы</div><h2>Частые вопросы</h2></div>
-   ${GEN_FAQ.map(([q,a])=>`<details class="faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
+   ${faqList.map(([q,a])=>`<details class="faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
  </div></section>
  ${rel.length?`<section style="padding-top:0"><div class="wrap"><h3 style="margin-bottom:18px">Смежные услуги</h3><div class="grid g3">${rel.map(scard).join('')}</div></div></section>`:''}
  ${band("Разберём вашу ситуацию по этой услуге","Оставьте заявку, эксперт оценит объект и назовёт срок и стоимость по вашей ситуации.")}`;
@@ -552,6 +613,9 @@ function richMgmt(){const g=groupByKey("upravlenie");
       <ul class="ulist"><li>Поиск и аудит объектов: состояние, рыночная стоимость, потенциал, юридическая чистота</li><li>Строительство и реконструкция для роста доходности</li><li>Оптимизация операционной деятельности объекта</li></ul></div>
     <div style="position:sticky;top:100px">${leadForm("upravlenie-nedvizhimostyu")}</div>
   </div></div></section>
+  <section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sec-head"><div class="eyebrow" style="color:var(--gold)">Вопросы</div><h2>Частые вопросы</h2></div>
+    ${[startFaq("upravlenie")].concat(GROUP_RICH.upravlenie.faq).map(([q,a])=>`<details class="faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
+  </div></section>
   ${band("Передайте объект в управление","Оставьте заявку, проведём аудит объекта и предложим тариф и план под вашу доходность.")}`;
 }
 
@@ -630,7 +694,7 @@ function richLanding(slug){const d=RICH[slug];if(!d)return null;const s=svcBySlu
    <div class="grid g3">${d.tariffs.map(([name,price,unit,desc,hl])=>`<div class="card" style="${hl?`border:2px solid ${c}`:''}"><div class="eyebrow" style="color:${c}">${esc(name)}</div><div style="font-size:34px;font-weight:800;color:var(--navy);line-height:1">${esc(price)}</div><div class="muted" style="font-size:13px;margin:4px 0 14px">${esc(unit)}</div><p class="muted" style="font-size:14px;margin:0">${esc(desc)}</p></div>`).join('')}</div>
  </div></section>`:''}
  <section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sec-head"><div class="eyebrow" style="color:${c}">Вопросы</div><h2>Частые вопросы</h2></div>
-   ${d.faq.map(([q,a])=>`<details class="faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
+   ${[startFaq(d.group)].concat(d.faq).map(([q,a])=>`<details class="faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
  </div></section>
  <section style="padding-top:0"><div class="wrap"><div class="grid g2" style="align-items:start;gap:40px">
    <div><div class="eyebrow" style="color:${c}">Заявка</div><h2 style="margin-bottom:14px">Разберём ваш объект</h2><p class="muted">Оставьте заявку, эксперт перезвонит, разберёт ситуацию и предложит план, сроки и стоимость. Ни к чему не обязывает.</p>
