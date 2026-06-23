@@ -50,6 +50,9 @@
   .menu>a,.menu .drop>a{padding:11px 14px;border-radius:10px;font-size:14.5px;font-weight:700;color:var(--navy);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:color .2s,background .2s;white-space:nowrap}
   .menu>a:hover,.menu .drop:hover>a{color:var(--blue2);background:var(--soft)}
   .menu>a.on{color:var(--blue2)}
+  .menu>a,.menu .drop>a{background-size:220% 100%;background-position:0 0}
+  .menu>a:hover,.menu .drop:hover>a{color:#fff;background-image:linear-gradient(90deg,#35b8fc,#7a5cff,#27c281,#35b8fc);animation:navshine 2.4s linear infinite;transform:translateY(-2px);box-shadow:0 8px 20px rgba(53,184,252,.28)}
+  @keyframes navshine{0%{background-position:0 0}100%{background-position:-220% 0}}
   .nav .right{margin-left:auto;display:flex;align-items:center;gap:16px;flex:0 0 auto}
   .nav .tel{font-weight:800;font-size:16px;color:var(--navy);white-space:nowrap}
   .nav .tel small{display:block;font-size:11px;font-weight:600;color:var(--ink3)}
@@ -131,7 +134,14 @@
   .agree a{color:var(--blue2);text-decoration:underline}
   .hp{position:absolute;left:-9999px}
   .formnote{font-size:12px;color:var(--ink3);margin-top:13px;font-weight:500}
-  .okmsg{background:#eaf9f1;border:1px solid #b6e6cd;color:#1c7a4d;border-radius:12px;padding:16px;font-size:14px;display:none;font-weight:600}.okmsg.show{display:block}
+  .okmsg{background:#eaf9f1;border:1px solid #b6e6cd;color:#1c7a4d;border-radius:12px;padding:16px;font-size:14px;display:none;font-weight:600} .okmsg.show{display:block}
+  details.faq{background:var(--white);border:1px solid var(--line);border-radius:var(--r-sm);padding:0 20px;margin-bottom:12px;box-shadow:var(--sh);transition:box-shadow .2s}
+  details.faq[open]{box-shadow:var(--sh-h)}
+  details.faq summary{list-style:none;cursor:pointer;font-weight:700;color:var(--navy);padding:18px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:15.5px}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary::after{content:"+";color:var(--blue2);font-size:22px;font-weight:700;flex:0 0 auto;transition:transform .2s}
+  details.faq[open] summary::after{content:"\2212"}
+  details.faq p{color:var(--ink2);margin:0 0 18px;font-size:14.5px;font-weight:500}
   /* band */
   .band{background:linear-gradient(135deg,var(--navy),#5b3bb0);border-radius:var(--r-lg);padding:54px 44px;text-align:center;color:#fff}
   .band h2{color:#fff;margin-bottom:12px} .band p{color:rgba(255,255,255,.85);max-width:560px;margin:0 auto 24px;font-weight:500}
@@ -437,7 +447,7 @@ PAGES["/spasibo"]=()=>`<section><div class="wrap" style="max-width:640px;text-al
   <p class="lede" style="margin:0 auto 26px">Эксперт KEO GROUP свяжется с вами в ближайшее время, разберёт объект и предложит план.</p>
   <a class="btn primary bracket" href="#/">На главную</a></div></section>`;
 
-function servicePage(slug){if(slug==="upravlenie-nedvizhimostyu")return richMgmt();const s=svcBySlug[slug];if(!s)return null;const g=groupByKey(s.g);const rel=svcByGroup(s.g).filter(x=>x.slug!==slug).slice(0,3);
+function servicePage(slug){if(slug==="upravlenie-nedvizhimostyu")return richMgmt();if(RICH[slug])return richLanding(slug);const s=svcBySlug[slug];if(!s)return null;const g=groupByKey(s.g);const rel=svcByGroup(s.g).filter(x=>x.slug!==slug).slice(0,3);
   return `<section><div class="wrap" style="max-width:1000px">
     <p class="crumbs"><a href="#/">Главная</a> / <a href="#/uslugi">Услуги</a> / <a href="#/g/${g.key}">${esc(g.title)}</a> / <span>${esc(s.name)}</span></p>
     <div class="grid g2" style="align-items:start;gap:40px">
@@ -523,6 +533,91 @@ function richMgmt(){const g=groupByKey("upravlenie");
     <div style="position:sticky;top:100px">${leadForm("upravlenie-nedvizhimostyu")}</div>
   </div></div></section>
   ${band("Передайте объект в управление","Оставьте заявку, проведём аудит объекта и предложим тариф и план под вашу доходность.")}`;
+}
+
+/* ===== БОГАТЫЕ ЛЕНДИНГИ НАПРАВЛЕНИЙ ===== */
+const RICH={
+ "krt-zashchita":{group:"legal",img:"volokolamskoe",
+  title:"КРТ: защита собственников и справедливая компенсация",
+  lede:"Если объект попал в зону комплексного развития территории, добиваемся исключения или справедливой компенсации через судебную экспертизу. Государственная оценка занижает стоимость в 2-3 раза, мы возвращаем реальную.",
+  badge:["+82%","средний рост компенсации, 2024-2025"],
+  pains:["Госоценка занижает компенсацию в 2-3 раза","90 дней на подписание соглашения, дальше суд","Не учитывают упущенную выгоду и улучшения","За 5,5 мес 2026 в Москве и области 220+ решений об изъятии"],
+  steps:[["01","Аудит документов","Анализ правоустанавливающих документов и оценки города"],["02","Доказательная база","Договоры, расчёты упущенной выгоды и стоимости улучшений"],["03","Судебная экспертиза","Ходатайство и вопросы эксперту вместо госоценки"],["04","Сопровождение","Контроль учёта всех документов и взыскание разницы"]],
+  stats:[["+82%","средний рост"],["+183%","максимум по делу"],["100%","экспертиз приняты судом"],["75+ млн","доп. взыскано по 4 делам"]],
+  tariffs:[["КРТ-досье","150 000 ₽","5-10 рабочих дней","Разбор объекта, оценка перспектив, дорожная карта",true],["Судебная экспертиза","25-30 тыс ₽","взыскивается с ДГИ","Независимая оценка реальной стоимости объекта",false],["Оплата по результату","%","от роста компенсации","Платите процент от той суммы, что мы дополнительно отсудили",false]],
+  faq:[["Как узнать, что объект включён в КРТ","По кадастровому номеру проверяем проект КРТ и публичные решения. На разборе скажем точно."],["Почему судебная экспертиза даёт больше","Госоценка системно занижает. Независимый эксперт учитывает рынок, упущенную выгоду и улучшения."],["Что входит в компенсацию","Рыночная стоимость объекта, убытки, упущенная выгода, иногда стоимость оборудования."],["Когда выплачивают деньги","После соглашения или решения суда. Действовать нужно до истечения 90 дней на подписание."]]},
+
+ "dgi-vykup-159fz":{group:"dgi",img:"pavoleckiy",
+  title:"ДГИ: споры и сделки с городом",
+  lede:"Защищаем имущественные права в спорах с Департаментом городского имущества Москвы: выкуп по 159-ФЗ, претензии по аренде, льготная аренда, оспаривание оценки. Профильная практика с 2017 года.",
+  badge:["1,2 млрд ₽","сэкономлено клиентам"],
+  pains:["Завышенная оценка при выкупе, на 30-80% выше рынка","Штрафы за нецелевое использование, 2-10% кадастровой","Бюрократия 6-12 месяцев вместо 30 дней по регламенту","Риск сноса и потеря аренды по уведомлению"],
+  steps:[["01","Бесплатный аудит дела","Разбираем ситуацию и документы, оцениваем перспективы"],["02","Стратегия и доказательства","Готовим позицию, оценку, расчёты"],["03","Досудебная защита","Переговоры и работа с ДГИ напрямую"],["04","Суд при необходимости","Представляем интересы, в том числе по результату"]],
+  stats:[["100+","дел за 2024-2025"],["95%","положительных решений"],["1,2 млрд","сэкономлено клиентам"],["7 лет","специализации по ДГИ"]],
+  tariffs:[["Консультация и аудит","Бесплатно","оценка за 1-2 дня","Разбираем дело и говорим перспективы честно",false],["Досудебное сопровождение","от 150 000 ₽","по объёму работ","Подготовка позиции и работа с ДГИ",true],["Суд","от 300 000 ₽","возможна оплата по результату","Полное представительство в суде",false]],
+  faq:[["Кому положен выкуп по 159-ФЗ","Малому и среднему бизнесу, который арендует помещение у города от 2 лет без долгов."],["Как оспорить цену выкупа","Через независимую оценку и при необходимости суд. По нашим делам снижали цену в разы."],["Что делать со штрафом за нецелевое","Анализируем основание, меняем назначение или обжалуем. Часто штраф отменяется."],["Можно ли продлить льготную аренду","Да, оформляем, продлеваем и сохраняем льготу при проверках."]]},
+
+ "rosreestr-priostanovki":{group:"kadastr",img:"marina-roshcha",
+  title:"Росреестр: регистрация, кадастр и снятие приостановок",
+  lede:"Полное сопровождение в Росреестре под ключ: от технического плана до выписки ЕГРН. Снимаем приостановки и отказы, регистрируем право. Гарантия результата или возврат.",
+  badge:["от 3 дней","регистрация под ключ"],
+  pains:["70% заявок получают приостановку из-за ошибок в документах","Потеря 3-12 месяцев на исправление","Доп. расходы 50-100% от первоначальной сметы","Нельзя продать, сдать в аренду или заложить объект"],
+  steps:[["01","Анализ причин","Разбираем приостановку или готовим пакет с нуля"],["02","Документы и техплан","Готовим техплан, заключения, исправляем замечания"],["03","Подача и сопровождение","Подаём и ведём дело в Росреестре"],["04","Снятие приостановки","Устраняем причины или обжалуем через апелляционную комиссию"]],
+  stats:[["400+","объектов зарегистрировано"],["15 лет","на рынке Москвы"],["3-7 дней","срок регистрации"],["30 дней","апелляционная комиссия"]],
+  tariffs:[["Технический план","от 15 000 ₽","3-5 дней","Здание, помещение, сооружение",false],["Техническое заключение","от 20 000 ₽","5-7 дней","Состояние конструкций и возможность работ",true],["Проект перепланировки","от 25 000 ₽","согласование в МЖИ","Проект и сопровождение",false]],
+  faq:[["Сколько занимает регистрация","Обычно 3-7 рабочих дней после подготовки документов."],["Что делать при приостановке","Есть 3 месяца на исправление. Разбираем причину и подаём повторно или обжалуем за 30 дней."],["Главные причины приостановок","Ошибки в техплане (около 35%) и неполный пакет документов (около 25%)."],["Работаете удалённо","Да, по доверенности и ЭЦП. Москва и область до 50 км от МКАД."]]},
+
+ "nekapitalnye-obekty":{group:"stroyka",img:"samarkandskiy",
+  title:"Некапитальные объекты: согласование и защита от сноса",
+  lede:"Разрабатываем проект и согласовываем павильоны, склады, ангары, навесы и модульные здания по 636-ПП и 1255-ПП. Легализуем существующие объекты и защищаем от сноса. Срок от 30 дней, гарантия или возврат.",
+  badge:["95%","положительных решений"],
+  pains:["Несогласованный объект сносят без компенсации","Штраф для юрлиц до 1 млн ₽","Приостановка бизнеса до 90 суток","Дедлайн легализации по 1255-ПП: 01.09.2027"],
+  steps:[["01","Аудит документов","1-2 дня, оцениваем объект и путь согласования"],["02","Разработка проекта","15-30 дней, документация, чертежи, 3D"],["03","Подача заявления","1-3 дня, подаём в уполномоченный орган"],["04","Сопровождение комиссии","30-45 дней, ведём до решения"],["05","Документы","5-10 дней, получаем разрешение"]],
+  stats:[["80+","согласованных объектов"],["95%","положительных решений"],["30 дней","средний срок"],["01.09.2027","дедлайн легализации"]],
+  tariffs:[["Только проект","от 100 000 ₽","документация, чертежи, 3D","Готовый проект для самостоятельной подачи",false],["Под ключ","от 180 000 ₽","проект, согласование, гарантия","Полный цикл до разрешения",true],["Легализация","от 250 000 ₽","для существующих объектов","Узаконивание и защита от сноса",false]],
+  faq:[["Что считается некапитальным","Павильоны, склады, ангары, навесы и модульные здания без заглублённого фундамента."],["Разница 636-ПП и 1255-ПП","636-ПП это городская земля и ДГИ, 1255-ПП это частная земля и новая процедура с 01.09.2024."],["Что грозит без согласования","Штрафы, приостановка бизнеса, снос и блокировка операций с имуществом."],["Сколько занимает согласование","Обычно 45-75 дней в зависимости от сложности объекта."]]},
+
+ "vri-zemelnogo-uchastka":{group:"legal",img:"fridriha-engelsa",
+  title:"Смена ВРИ, ПЗЗ и ПМТ",
+  lede:"Меняем вид разрешённого использования участка под ваши задачи: регистрация аренды, разрешение на строительство, смена деятельности, снижение налога. Корректируем ПЗЗ и разрабатываем ПМТ.",
+  badge:["95%","положительных решений"],
+  pains:["Росреестр не регистрирует аренду без корректного ВРИ","Штраф от ГИН: 1,5-2% кадастровой, минимум 100 000 ₽","Земельный налог выше при нецелевом использовании","Нельзя получить разрешение на строительство"],
+  steps:[["01","Градостроительный аудит","1-3 дня, анализ участка и зоны"],["02","Стратегия","3-5 дней, дорожная карта"],["03","Документы","2-4 недели, готовим пакет"],["04","Согласование","1-6 месяцев в органах власти"],["05","ЕГРН","2-4 недели, вносим изменения"]],
+  stats:[["9 лет","в земельных вопросах"],["50+","проектов по ВРИ и ПМТ"],["95%","положительных решений"],["на 20-30%","быстрее среднего"]],
+  tariffs:[["ВРИ без ПЗЗ","от 150 000 ₽","2-4 месяца","Если нужный ВРИ есть в регламенте зоны",true],["ВРИ через ПЗЗ","от 300 000 ₽","6-10 месяцев","Через изменение ПЗЗ, ДГП и ГЗК",false],["ПМТ","от 300 000 ₽","3-6 месяцев","Корректировка или разработка проекта межевания",false]],
+  faq:[["Почему Росреестр не регистрирует аренду","Назначение помещения должно соответствовать ВРИ участка по ст. 37 ГрК РФ."],["Разница ВРИ с ПЗЗ и без","Если ВРИ есть в регламенте зоны, нужно только заявление. Если нет, меняем ПЗЗ через ДГП и ГЗК."],["Что такое ПМТ","Проект межевания, определяет границы участков. Нужен для присоединения и образования участков."],["С чего начать","Достаточно кадастрового номера, дальше выписка ЕГРН, ГПЗУ и правоустанавливающие документы."]]},
+};
+function richLanding(slug){const d=RICH[slug];if(!d)return null;const s=svcBySlug[slug];const g=groupByKey(d.group);const c=g.c;
+ const rel=svcByGroup(d.group).filter(x=>x.slug!==slug).slice(0,3);
+ return `<section class="hero"><div class="wrap"><div class="row">
+   <div><p class="crumbs"><a href="#/">Главная</a> / <a href="#/uslugi">Услуги</a> / <a href="#/g/${g.key}">${esc(g.title)}</a> / <span>${esc(s?s.name:d.title)}</span></p>
+     <div class="eyebrow" style="color:${c}">${esc(g.title)}</div>
+     <h1>${esc(d.title)}</h1><p class="lede">${esc(d.lede)}</p>
+     <div class="cta"><a class="btn primary bracket" href="#/kontakty">Получить разбор объекта</a>${s&&s.price?`<span class="btn ghost" style="cursor:default">${esc(s.price)}</span>`:''}</div>
+   </div>
+   <div class="pic"><img src="./images/cases/${esc(d.img)}.jpg" alt="${esc(d.title)}"><div class="badge"><b style="color:${c}">${esc(d.badge[0])}</b><span>${esc(d.badge[1])}</span></div></div>
+ </div></div></section>
+ <section style="padding-top:10px"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">В цифрах</div><h2>Результаты направления</h2></div>
+   <div class="trust" style="padding:0"><div class="wrap" style="padding:0"><div class="row">${d.stats.map((x,i)=>`<div class="t${i===0?' hl':''}">${i===0?`<b style="color:#fff">${esc(x[0])}</b><span style="color:#fff">${esc(x[1])}</span>`:`<b>${esc(x[0])}</b><span>${esc(x[1])}</span>`}</div>`).join('')}</div></div></div>
+ </div></section>
+ <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Зачем это вам</div><h2>Что решаем</h2></div>
+   <div class="grid g2">${d.pains.map(x=>`<div class="card" style="display:flex;gap:14px;align-items:flex-start"><span style="flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:#fdeaea;color:#e5484d;display:flex;align-items:center;justify-content:center;font-weight:800">!</span><p class="muted" style="margin:0;font-size:15px">${esc(x)}</p></div>`).join('')}</div>
+ </div></section>
+ <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Как работаем</div><h2>Этапы под ключ</h2></div>
+   <div class="grid g${d.steps.length>4?'3':'4'}">${d.steps.map(([n,t,dd])=>`<div class="card"><div style="font-size:38px;font-weight:800;color:${c};line-height:1;margin-bottom:12px">${n}</div><h3 style="font-size:17px;margin-bottom:8px">${esc(t)}</h3><p class="muted" style="font-size:13.5px;margin:0">${esc(dd)}</p></div>`).join('')}</div>
+ </div></section>
+ ${d.tariffs?`<section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:${c}">Стоимость</div><h2>Тарифы и ориентиры</h2><p class="lede" style="margin-top:12px">Точную смету считаем после разбора объекта, оплата по этапам.</p></div>
+   <div class="grid g3">${d.tariffs.map(([name,price,unit,desc,hl])=>`<div class="card" style="${hl?`border:2px solid ${c}`:''}"><div class="eyebrow" style="color:${c}">${esc(name)}</div><div style="font-size:34px;font-weight:800;color:var(--navy);line-height:1">${esc(price)}</div><div class="muted" style="font-size:13px;margin:4px 0 14px">${esc(unit)}</div><p class="muted" style="font-size:14px;margin:0">${esc(desc)}</p></div>`).join('')}</div>
+ </div></section>`:''}
+ <section style="padding-top:0"><div class="wrap" style="max-width:860px"><div class="sec-head"><div class="eyebrow" style="color:${c}">Вопросы</div><h2>Частые вопросы</h2></div>
+   ${d.faq.map(([q,a])=>`<details class="faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
+ </div></section>
+ <section style="padding-top:0"><div class="wrap"><div class="grid g2" style="align-items:start;gap:40px">
+   <div><div class="eyebrow" style="color:${c}">Заявка</div><h2 style="margin-bottom:14px">Разберём ваш объект</h2><p class="muted">Оставьте заявку, эксперт перезвонит, разберёт ситуацию и предложит план, сроки и стоимость. Ни к чему не обязывает.</p>
+     ${rel.length?`<h3 style="margin:26px 0 14px;font-size:18px">Смежные услуги</h3><div class="grid" style="gap:14px">${rel.map(scard).join('')}</div>`:''}</div>
+   <div style="position:sticky;top:100px">${leadForm(slug)}</div>
+ </div></div></section>
+ ${band("Получите разбор по этому направлению","Оставьте заявку, эксперт оценит объект и назовёт срок и стоимость по вашей ситуации.")}`;
 }
 
 /* ===== ФОРМА ===== */
