@@ -155,10 +155,10 @@
   .clogo{font-weight:800;font-size:clamp(15px,2.2vw,20px);letter-spacing:.02em;color:#8a90a6;filter:grayscale(1);opacity:.75;transition:opacity .2s,color .2s}
   .clogo:hover{opacity:1;color:var(--navy)}
   .onewin{background:linear-gradient(180deg,#fff,var(--soft))}
-  .funnel{max-width:840px;margin:0 auto;text-align:center}
-  .fchips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+  .funnel{max-width:860px;margin:0;text-align:left}
+  .fchips{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:10px}
   .fchip{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-weight:700;font-size:13.5px;color:var(--navy);box-shadow:var(--sh)}
-  .farrow{margin:14px 0;display:flex;align-items:center;justify-content:center}
+  .farrow{margin:14px 0;display:flex;align-items:center;justify-content:flex-start}
   .farrow span{color:var(--ink3);font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;position:relative;padding:0 30px}
   .farrow span::before,.farrow span::after{content:"";position:absolute;top:50%;width:22px;height:1px;background:var(--line)}
   .farrow span::before{left:0}.farrow span::after{right:0}
@@ -490,14 +490,14 @@ PAGES["/"]=()=>`
       <div class="owitem"><div class="oic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M8.5 13L7 21l5-2.5L17 21l-1.5-8"/></svg></div><div><b>Результат в договоре</b><p>Сроки и итог закрепляем письменно. Отвечаем за результат, а не за процесс.</p></div></div>
       <div class="owitem"><div class="oic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.3 12.4l2.4 2.4 4.8-5.2"/></svg></div><div><b>Можно выдохнуть</b><p>Вы передали объект профессионалам. Дальше спокойствие и понятный план по шагам.</p></div></div>
     </div>
-    <div style="text-align:center;margin-top:30px"><a class="btn primary bracket" href="#/kontakty">Доверить объект одному окну</a></div>
+    <div style="margin-top:30px"><a class="btn primary bracket" href="#/kontakty">Доверить объект одному окну</a></div>
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <div class="sec-head"><div class="eyebrow">Навигатор по задачам</div><h2>С какой задачей пришли</h2><p class="lede" style="margin-top:12px">Пять направлений закрывают весь путь объекта. Внутри отдельная страница на каждую из 31 услуги.</p></div>
     <div class="grid g3">${GROUPS.map(g=>`<a class="gcard" href="#/g/${g.key}" style="--c:${g.c}"><div class="ic">${ICONS[g.key]}</div><h3>${esc(g.title)}</h3><p>${esc(g.desc)}</p><span class="cnt">${svcByGroup(g.key).length} услуг →</span></a>`).join('')}</div>
   </div></section>
   <section style="padding-top:0"><div class="wrap">
-    <div class="sec-head"><div class="eyebrow">Почему к нам</div><h2>Единое окно вместо десяти подрядчиков</h2></div>
+    <div class="sec-head"><div class="eyebrow">Почему к нам</div><h2>Почему доверяют именно нам</h2></div>
     <div class="grid g4">${WHY.map(([ic,t,d])=>`<div class="card"><div style="color:var(--blue2);margin-bottom:14px">${ic}</div><h3 style="font-size:18px;margin-bottom:8px">${esc(t)}</h3><p class="muted" style="font-size:14px;margin:0">${esc(d)}</p></div>`).join('')}</div>
   </div></section>
   <section style="padding-top:0"><div class="wrap">
@@ -511,7 +511,7 @@ PAGES["/"]=()=>`
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="grid g2" style="gap:44px;align-items:center">
     <div class="pic" style="position:relative;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh);aspect-ratio:16/11"><img src="./images/land/home-about.jpg" alt="О KEO GROUP" style="width:100%;height:100%;object-fit:cover"></div>
-    <div><div class="eyebrow">О компании</div><h2 style="margin-bottom:14px">Единое окно вместо десяти подрядчиков</h2>
+    <div><div class="eyebrow">О компании</div><h2 style="margin-bottom:14px">Инженеры и юристы в одной команде</h2>
       <p class="muted" style="font-size:16px">Юристы, кадастровые инженеры и градостроители KEO GROUP работают в одной команде. Основатели в недвижимости больше 20 лет, у нас собственный проектный отдел, а специалисты прошли работу в Росреестре и БТИ. Берём весь цикл общения с госорганами на себя, результат закрепляем в договоре.</p>
       <div style="margin-top:22px"><a class="btn ghost bracket" href="#/o-kompanii">Подробнее о компании</a></div></div>
   </div></div></section>
