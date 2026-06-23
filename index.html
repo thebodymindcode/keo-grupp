@@ -234,12 +234,13 @@ const SEGMENTS=[
  "Собственникам и арендаторам земли: ВРИ, ПЗЗ, ПМТ",
 ];
 const CASES=[
- {t:"Реконструкция, 2-я ул. Марьиной Рощи 2А",d:"СВАО",res:"+471,2 кв.м, исключён из 819-ПП",term:"6 мес",extra:"Протокол ГЗК, признано право собственности"},
- {t:"Комплексная реконструкция, Волоколамское ш. 5 стр.1",d:"САО",res:"+900 кв.м, право собственности",term:"15 мес",extra:"Согласование с Мосводоканалом и Мосводостоком"},
- {t:"ТЦ, 3-й Павелецкий проезд вл.4",d:"ЮАО",res:"+1 646,1 кв.м",term:"9 мес",extra:"Протокол ГЗК №16 п.86, исключён из 819-ПП"},
- {t:"Антресоль и мансарда, Фридриха Энгельса 75 стр.3",d:"ЦАО",res:"+736 кв.м",term:"6 мес",extra:"Протокол ГЗК, право собственности"},
- {t:"Надстройка и пристройка, Самаркандский бул. 4",d:"ЮВАО",res:"+750,1 кв.м",term:"7 мес",extra:"Протокол ГЗК, право собственности"},
- {t:"Портфель легализации",d:"Москва",res:"30+ проектов, 30 000+ кв.м",term:"",extra:"100% положительных решений ГЗК"},
+ {img:"marina-roshcha",t:"2-я ул. Марьиной Рощи, 2А",d:"СВАО",area:"+471,2 кв.м",desc:"Реконструкция с поднятием кровли и присоединением чердака",res:"Исключён из 819-ПП, протокол ГЗК, признано право собственности"},
+ {img:"volokolamskoe",t:"Волоколамское шоссе, 5 стр.1",d:"САО",area:"+900 кв.м",desc:"Комплексная реконструкция: подвал, мансарда, пристройка, согласование с Мосводоканалом и Мосводостоком",res:"Исключён из 819-ПП, право собственности"},
+ {img:"pavoleckiy",t:"3-й Павелецкий проезд, вл.4",d:"ЮАО",area:"+1 646,1 кв.м",desc:"ТЦ, акт ГИН №0046, выписка из протокола ГЗК №16, п.86",res:"Исключён из 819-ПП, право собственности"},
+ {img:"fridriha-engelsa",t:"ул. Фридриха Энгельса, 75 стр.3",d:"ЦАО",area:"+736 кв.м",desc:"Устройство антресольного и мансардного этажей, реконструкция кровли",res:"Исключён из 819-ПП, право собственности"},
+ {img:"samarkandskiy",t:"Самаркандский бульвар, 4",d:"ЮВАО",area:"+750,1 кв.м",desc:"Надстройка третьего этажа и пристройка",res:"Исключён из 819-ПП, право собственности",term:"7 мес"},
+ {img:"prechistenskiy",t:"Пречистенский пер., 5 стр.1",d:"ЦАО",area:"+170 кв.м",desc:"Освоение подвала и антресоль в историческом центре, согласование с Мосводоканалом",res:"Исключён из 819-ПП, право собственности"},
+ {img:"novolesnaya",t:"ул. Новолесная, 3 стр.1",d:"ЦАО",area:"+100 кв.м",desc:"Освоение подвала и устройство антресольного этажа",res:"Исключён из 819-ПП, право собственности",term:"5 мес"},
 ];
 const svcBySlug=Object.fromEntries(SERVICES.map(s=>[s.slug,s]));
 const svcByGroup=g=>SERVICES.filter(s=>s.g===g);
@@ -314,7 +315,7 @@ function leadForm(prefill){const opts=SERVICES.map(s=>`<option${prefill===s.slug
   </form>`;}
 /* ===== СТРАНИЦЫ ===== */
 const PAGES={};
-function caseCard(c){return `<div class="case"><div class="ph"><img src="./images/case.png" alt="Объект в Москве" loading="lazy"></div><div class="b"><h4>${esc(c.t)}</h4><div class="res">${esc(c.res)}</div><div class="meta"><span>${esc(c.d)}</span>${c.term?`<span>Срок ${esc(c.term)}</span>`:''}</div><p class="muted" style="font-size:13px;margin:10px 0 0">${esc(c.extra)}</p></div></div>`;}
+function caseCard(c){return `<div class="case"><div class="ph"><img src="./images/cases/${esc(c.img)}.jpg" alt="${esc(c.t)}" loading="lazy"></div><div class="b"><div class="res" style="font-size:22px">${esc(c.area)}</div><h4 style="margin:6px 0 0;font-size:16px">${esc(c.t)}</h4><div class="meta"><span>${esc(c.d)}</span>${c.term?`<span>Срок ${esc(c.term)}</span>`:''}</div><p class="muted" style="font-size:13px;margin:10px 0 0">${esc(c.desc)}. ${esc(c.res)}.</p></div></div>`;}
 
 PAGES["/"]=()=>`
   <section class="hero"><div class="wrap"><div class="row">
