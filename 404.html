@@ -32,6 +32,9 @@
   .court-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
   .court-num{font-size:12.5px;font-weight:700;color:var(--navy)}
   .court-resp{font-size:12px;color:var(--ink3)}
+  .court-prep{margin-top:11px;font-size:12.5px;color:var(--navy);background:var(--soft);border-radius:10px;padding:10px 12px;line-height:1.5}
+  .court-num{font-size:12.5px;font-weight:700;color:var(--blue2);text-decoration:none}
+  .court-num:hover{text-decoration:underline}
   .court-win{margin-top:12px;display:inline-flex;align-items:center;gap:7px;background:color-mix(in srgb,var(--green) 12%,#fff);color:#1f9d6b;font-weight:800;font-size:13px;padding:8px 13px;border-radius:10px}
   .article b.hl,.art-ul b.hl,.art-tldr b.hl,.art-note p b.hl,details.faq p b.hl{color:var(--navy);font-weight:700;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--blue) 22%,#fff) 0)}
   .art-key-t b.hl{color:#fff;font-weight:800;background:none}
@@ -548,7 +551,7 @@ function leadForm(prefill){const opts=SERVICES.map(s=>`<option${prefill===s.slug
   </form>`;}
 /* ===== СТРАНИЦЫ ===== */
 const PAGES={};
-function courtCard(c){return `<div class="case court"><div class="b"><div class="res" style="font-size:22px;color:#7a5cff">${esc(c.area)}</div><h4 style="margin:6px 0 0;font-size:16px">${esc(c.t)}</h4><div class="meta"><span>${esc(c.d)}</span><span>${esc(c.date)}</span></div><p class="muted" style="font-size:13px;margin:10px 0 0">${esc(c.desc)}</p><div class="court-foot"><span class="court-num">Дело № ${esc(c.num)}</span><span class="court-resp">${esc(c.resp)}</span></div><div class="court-win">✓ ${c.off?'ДГИ отказался от иска':'В иске ДГИ отказано'}</div></div></div>`;}
+function courtCard(c){var q=encodeURIComponent('Дело '+String(c.num).split(',')[0]+' kad.arbitr.ru');var prep=c.off?'Объект приведён в полное соответствие нормам в досудебном порядке, до суда.':'Подготовили объект к судебной строительно-технической экспертизе и получили положительное заключение.';return `<div class="case court"><div class="b"><div class="res" style="font-size:22px;color:#7a5cff">${esc(c.area)}</div><h4 style="margin:6px 0 0;font-size:16px">${esc(c.t)}</h4><div class="meta"><span>${esc(c.d)}</span><span>${esc(c.date)}</span></div><p class="muted" style="font-size:13px;margin:10px 0 0">${esc(c.desc)}</p><div class="court-prep">${prep} На его основании суд отказал ДГИ в сносе.</div><div class="court-foot"><a class="court-num" href="https://yandex.ru/search/?text=${q}" target="_blank" rel="noopener">Дело № ${esc(c.num)} ↗</a><span class="court-resp">${esc(c.resp)}</span></div><div class="court-win">✓ ${c.off?'ДГИ отказался от иска':'В иске ДГИ отказано'}</div></div></div>`;}
 function caseCard(c){return `<div class="case"><div class="ph"><img src="./images/cases/${esc(c.img)}.jpg" alt="${esc(c.t)}" loading="lazy"></div><div class="b"><div class="res" style="font-size:22px">${esc(c.area)}</div><h4 style="margin:6px 0 0;font-size:16px">${esc(c.t)}</h4><div class="meta"><span>${esc(c.d)}</span>${c.term?`<span>Срок ${esc(c.term)}</span>`:''}</div><p class="muted" style="font-size:13px;margin:10px 0 0">${esc(c.desc)}. ${esc(c.res)}.</p></div></div>`;}
 
 PAGES["/"]=()=>`
@@ -664,7 +667,7 @@ PAGES["/keysy"]=()=>`
  <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow">Легализация</div><h2>Объекты, которые узаконили</h2><p class="lede" style="margin-top:12px">Площади, сроки и округа Москвы. Все с положительным протоколом ГЗК.</p></div>
    <div class="grid g3">${CASES.map(caseCard).join('')}</div>
  </div></section>
- <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:#7a5cff">Судебная практика</div><h2>Выигранные суды: защита от сноса</h2><p class="lede" style="margin-top:12px">Более 40 выигранных дел по искам Департамента городского имущества и Правительства Москвы. Реальные номера арбитражных дел, площади и решения судов.</p></div>
+ <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow" style="color:#7a5cff">Судебная практика</div><h2>Выигранные суды: защита от сноса</h2><p class="lede" style="margin-top:12px">Более 40 выигранных дел по искам Департамента городского имущества и Правительства Москвы. По каждому объекту мы готовили здание к судебной строительно-технической экспертизе и добивались положительного заключения, на основании которого суд отказывал ДГИ в сносе. Номер дела кликабелен, его можно проверить в картотеке арбитражных дел.</p></div>
    <div class="grid g3">${CASES_COURT.map(courtCard).join('')}</div>
  </div></section>
  <section style="padding-top:0"><div class="wrap"><div class="sec-head"><div class="eyebrow">Результат</div><h2>Что получает собственник</h2></div>
