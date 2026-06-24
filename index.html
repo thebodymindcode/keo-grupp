@@ -96,6 +96,9 @@
   .mega .col h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin:0 0 12px}
   .mega .col a{display:block;padding:7px 0;font-size:13.5px;font-weight:600;color:var(--ink2);border:0}
   .mega .col a:hover{color:var(--blue2);background:transparent}
+  .mega .col h4 a.colh{color:var(--blue);text-decoration:none}
+  .mega .col a.moreall{color:var(--blue2);font-weight:700;margin-top:8px}
+  @media(max-width:1160px){.mega{display:none!important}}
   .mega .feat{background:linear-gradient(150deg,var(--navy),#5b3bb0);border-radius:var(--r);padding:22px;color:#fff;display:flex;flex-direction:column;gap:10px;align-self:start}
   .mega .feat h4{color:#fff;font-size:19px;margin:0 0 8px}
   .mega .feat p{color:rgba(255,255,255,.82);font-size:13px}
@@ -483,7 +486,7 @@ const WHY=[
 ];
 
 function renderChrome(){
-  const cols=GROUPS.map(g=>`<div class="col"><h4>${esc(g.title)}</h4>${svcByGroup(g.key).map(s=>`<a href="#/u/${s.slug}">${esc(s.name)}</a>`).join('')}</div>`).join('');
+  const cols=GROUPS.map(g=>{const L=svcByGroup(g.key);const top=L.slice(0,5).map(s=>`<a href="#/u/${s.slug}">${esc(s.name)}</a>`).join('');const more=L.length>5?`<a class="moreall" href="#/g/${g.key}">Все ${L.length} услуг →</a>`:'';return `<div class="col"><h4><a class="colh" href="#/g/${g.key}">${esc(g.title)}</a></h4>${top}${more}</div>`;}).join('');
   document.getElementById('menu').innerHTML=`
     <a href="#/" data-r="/">Главная</a>
     <div class="drop"><a href="#/uslugi" data-r="/uslugi">Услуги ▾</a><div class="mega"><div class="wrap"><div class="in">${cols}
@@ -642,7 +645,7 @@ PAGES["/"]=()=>`
 
 PAGES["/uslugi"]=()=>`<section><div class="wrap">
   <p class="crumbs"><a href="#/">Главная</a> / <span>Услуги</span></p>
-  <div class="sec-head"><div class="eyebrow">Услуги</div><h2>Все направления KEO GROUP</h2><p class="lede" style="margin-top:12px">31 услуга в пяти направлениях. На каждую отдельная страница: что входит, сроки и цена.</p></div>
+  <div class="sec-head"><div class="eyebrow">Услуги</div><h2>Все направления KEO GROUP</h2><p class="lede" style="margin-top:12px">${SERVICES.length} услуг в пяти направлениях. На каждую отдельная страница: что входит, сроки и цена.</p></div>
   ${GROUPS.map(g=>`<div style="margin-bottom:42px"><div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><span style="width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,${g.c} 14%,#fff);color:${g.c}">${ICONS[g.key]}</span><h3 style="font-size:24px">${esc(g.title)}</h3></div><div class="grid g3">${svcByGroup(g.key).map(scard).join('')}</div></div>`).join('')}
 </div></section>${band("Не нашли свою ситуацию","Опишите задачу, подскажем направление и план. Часто решение есть даже там, где отказали другие.")}`;
 
